@@ -189,6 +189,158 @@
         "method": "DEBIT_CARD",
         "amount": 283.05
       }
+    },
+    {
+      "id": "ord-93bdf096",
+      "customerId": "cust-micro-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 2,
+          "lineTotal": 259.98
+        }
+      ],
+      "subtotal": 259.98,
+      "taxDetails": {
+        "jurisdiction": "US-NY",
+        "taxRule": "New York City Composite Tax",
+        "taxRate": 0.08875,
+        "taxRatePercentage": "8.88%",
+        "subtotal": 259.98,
+        "taxAmount": 23.07,
+        "totalAmount": 283.05
+      },
+      "totalAmount": 283.05,
+      "status": "PAID",
+      "shippingAddress": {
+        "locationCode": "US-NY"
+      },
+      "createdAt": "2026-11-02T16:27:22.768Z",
+      "reservationId": "res-c89254cb",
+      "reservationExpiresAt": "2026-11-02T16:32:22.771Z",
+      "updatedAt": "2026-11-02T16:27:22.787Z",
+      "paidAt": "2026-11-02T16:27:22.787Z",
+      "paymentDetails": {
+        "transactionId": "dist-txn-1793636842787",
+        "method": "DEBIT_CARD",
+        "amount": 283.05
+      }
+    },
+    {
+      "id": "ord-bd6731d0",
+      "customerId": "cust-micro-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 2,
+          "lineTotal": 259.98
+        }
+      ],
+      "subtotal": 259.98,
+      "taxDetails": {
+        "jurisdiction": "US-NY",
+        "taxRule": "New York City Composite Tax",
+        "taxRate": 0.08875,
+        "taxRatePercentage": "8.88%",
+        "subtotal": 259.98,
+        "taxAmount": 23.07,
+        "totalAmount": 283.05
+      },
+      "totalAmount": 283.05,
+      "status": "PAID",
+      "shippingAddress": {
+        "locationCode": "US-NY"
+      },
+      "createdAt": "2026-11-02T16:27:54.136Z",
+      "reservationId": "res-aad0fd1c",
+      "reservationExpiresAt": "2026-11-02T16:32:54.138Z",
+      "updatedAt": "2026-11-02T16:27:54.153Z",
+      "paidAt": "2026-11-02T16:27:54.153Z",
+      "paymentDetails": {
+        "transactionId": "dist-txn-1793636874153",
+        "method": "DEBIT_CARD",
+        "amount": 283.05
+      }
+    },
+    {
+      "id": "ord-6598da32",
+      "customerId": "cust-micro-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 2,
+          "lineTotal": 259.98
+        }
+      ],
+      "subtotal": 259.98,
+      "taxDetails": {
+        "jurisdiction": "US-NY",
+        "taxRule": "New York City Composite Tax",
+        "taxRate": 0.08875,
+        "taxRatePercentage": "8.88%",
+        "subtotal": 259.98,
+        "taxAmount": 23.07,
+        "totalAmount": 283.05
+      },
+      "totalAmount": 283.05,
+      "status": "PAID",
+      "shippingAddress": {
+        "locationCode": "US-NY"
+      },
+      "createdAt": "2026-11-02T16:49:55.559Z",
+      "reservationId": "res-7039f99d",
+      "reservationExpiresAt": "2026-11-02T16:54:55.563Z",
+      "updatedAt": "2026-11-02T16:49:55.579Z",
+      "paidAt": "2026-11-02T16:49:55.579Z",
+      "paymentDetails": {
+        "transactionId": "dist-txn-1793638195579",
+        "method": "DEBIT_CARD",
+        "amount": 283.05
+      }
+    },
+    {
+      "id": "ord-5f314111",
+      "customerId": "cust-micro-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 2,
+          "lineTotal": 259.98
+        }
+      ],
+      "subtotal": 259.98,
+      "taxDetails": {
+        "jurisdiction": "US-NY",
+        "taxRule": "New York City Composite Tax",
+        "taxRate": 0.08875,
+        "taxRatePercentage": "8.88%",
+        "subtotal": 259.98,
+        "taxAmount": 23.07,
+        "totalAmount": 283.05
+      },
+      "totalAmount": 283.05,
+      "status": "PAID",
+      "shippingAddress": {
+        "locationCode": "US-NY"
+      },
+      "createdAt": "2026-11-02T16:50:20.536Z",
+      "reservationId": "res-5a574bca",
+      "reservationExpiresAt": "2026-11-02T16:55:20.538Z",
+      "updatedAt": "2026-11-02T16:50:20.555Z",
+      "paidAt": "2026-11-02T16:50:20.555Z",
+      "paymentDetails": {
+        "transactionId": "dist-txn-1793638220555",
+        "method": "DEBIT_CARD",
+        "amount": 283.05
+      }
     }
   ],
   "carts": [
@@ -221,6 +373,30 @@
       "items": [],
       "locationCode": "DEFAULT",
       "createdAt": "2026-11-02T16:23:32.037Z"
+    },
+    {
+      "id": "micro-cart-1793636842747",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:27:22.759Z"
+    },
+    {
+      "id": "micro-cart-1793636874114",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:27:54.127Z"
+    },
+    {
+      "id": "micro-cart-1793638195535",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:49:55.551Z"
+    },
+    {
+      "id": "micro-cart-1793638220514",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:50:20.527Z"
     }
   ]
 }

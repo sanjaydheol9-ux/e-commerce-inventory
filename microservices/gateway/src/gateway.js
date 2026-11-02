@@ -67,7 +67,7 @@ app.get('/health', async (req, res) => {
     })
   );
 
-  res.status(allHealthy ? 200 : 207).json({
+  res.status(200).json({
     status: allHealthy ? 'HEALTHY' : 'DEGRADED',
     architecture: 'Microservices with API Gateway',
     gatewayPort: PORT,

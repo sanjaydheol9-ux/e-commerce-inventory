@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANTA — Premium Tech</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030303; --surface: #0a0a0a; --card: #111; --card-h: #161616;
+      --border: #1a1a1a; --border-h: #2a2a2a; --text: #f5f5f5; --text2: #888; --text3: #555;
+      --white: #fff; --black: #000; --accent: #c8ff00; --red: #ff3b30;
+      --r: 14px; --rs: 10px; --transition: .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    ::selection { background: var(--accent); color: var(--black); }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 99px; }
+
+    /* ===== NAVBAR ===== */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; transition: background .4s, border-color .4s; border-bottom: 1px solid transparent; }
+    .nav.scrolled { background: rgba(3,3,3,.88); backdrop-filter: blur(24px) saturate(180%); border-color: var(--border); }
+    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 72px; }
+    .logo { display: flex; align-items: center; gap: .7rem; }
+    .logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .9rem; color: var(--black); }
+    .logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -1px; color: var(--white); }
+    .nav-links { display: flex; gap: 2px; background: rgba(255,255,255,.04); border-radius: 12px; padding: 4px; }
+    .nav-link { background: none; color: var(--text2); font-size: .82rem; font-weight: 600; padding: .5rem 1.1rem; border-radius: 9px; transition: var(--transition); position: relative; letter-spacing: -.2px; }
+    .nav-link:hover { color: var(--white); }
+    .nav-link.active { color: var(--white); background: rgba(255,255,255,.1); }
+    .nav-link .dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; display: none; }
+    .nav-link .dot.show { display: block; }
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+    .cart-btn { position: relative; background: rgba(255,255,255,.06); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+    .cart-btn:hover { background: rgba(255,255,255,.12); }
+    .cart-btn svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 1.8; }
+    .cart-btn .count { position: absolute; top: -4px; right: -4px; background: var(--accent); color: var(--black); font-size: .6rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+    /* ===== LAYOUT ===== */
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 0 3rem; }
+    .page { display: none; opacity: 0; transform: translateY(10px); transition: opacity .4s, transform .4s; }
+    .page.active { display: block; opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) { .wrap, .nav-inner { padding: 0 1.2rem; } }
+
+    /* ===== HERO ===== */
+    .hero { margin-top: 72px; position: relative; height: 85vh; min-height: 550px; max-height: 800px; overflow: hidden; display: flex; align-items: center; }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.35) contrast(1.1); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,3,3,0) 0%, rgba(3,3,3,.4) 50%, rgba(3,3,3,1) 100%); }
+    .hero-body { position: relative; z-index: 2; padding: 0 3rem; max-width: 1400px; margin: 0 auto; width: 100%; }
+    .hero-chip { display: inline-flex; align-items: center; gap: .5rem; background: rgba(200,255,0,.1); border: 1px solid rgba(200,255,0,.25); color: var(--accent); font-size: .72rem; font-weight: 700; padding: .4rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1.5px; }
+    .hero-chip .pulse { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+    .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 700; line-height: 1.05; letter-spacing: -3px; margin-bottom: 1.2rem; }
+    .hero-title .accent { color: var(--accent); }
+    .hero-sub { color: #999; font-size: 1.1rem; font-weight: 400; max-width: 480px; line-height: 1.6; margin-bottom: 2rem; }
+    .hero-cta { display: inline-flex; align-items: center; gap: .6rem; background: var(--accent); color: var(--black); padding: .85rem 2rem; border-radius: 12px; font-weight: 700; font-size: .9rem; letter-spacing: -.2px; transition: var(--transition); }
+    .hero-cta:hover { background: #d4ff33; transform: translateY(-2px); }
+    .hero-cta svg { width: 16px; height: 16px; }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .hero-scroll .arrow { width: 24px; height: 24px; stroke: #555; fill: none; stroke-width: 2; animation: bob 2s infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+    /* ===== SECTION ===== */
+    .section { padding: 5rem 0; }
+    .section-head { margin-bottom: 2.5rem; }
+    .section-label { font-size: .7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: .5rem; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -1px; }
+    .section-desc { color: var(--text2); font-size: .92rem; font-weight: 400; margin-top: .4rem; }
+
+    /* ===== FILTERS ===== */
+    .filters { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .pills { display: flex; gap: 6px; }
+    .pill { background: var(--surface); border: 1px solid var(--border); color: var(--text2); font-size: .78rem; font-weight: 600; padding: .45rem 1.1rem; border-radius: 99px; transition: var(--transition); }
+    .pill:hover { border-color: var(--border-h); color: var(--white); }
+    .pill.on { background: var(--white); color: var(--black); border-color: var(--white); }
+    .result-count { font-size: .82rem; color: var(--text3); font-weight: 500; }
+
+    /* ===== PRODUCT GRID ===== */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .p-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: var(--transition); position: relative; }
+    .p-card:hover { border-color: var(--border-h); background: var(--card-h); transform: translateY(-4px); }
+    .p-card .thumb { position: relative; height: 300px; overflow: hidden; background: #080808; }
+    .p-card .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.4,0,.2,1); }
+    .p-card:hover .thumb img { transform: scale(1.06); }
+    .p-card .cat-tag { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,.65); backdrop-filter: blur(8px); color: #ccc; font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 8px; letter-spacing: .5px; text-transform: uppercase; }
+    .p-card .stock-led { position: absolute; top: 14px; right: 14px; width: 8px; height: 8px; border-radius: 50%; }
+    .p-card .stock-led.ok { background: #2ecc71; box-shadow: 0 0 12px rgba(46,204,113,.5); }
+    .p-card .stock-led.low { background: var(--red); box-shadow: 0 0 12px rgba(255,59,48,.5); }
+    .p-body { padding: 1.3rem 1.4rem 1.4rem; }
+    .p-body .p-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -.3px; margin-bottom: .3rem; }
+    .p-body .p-desc { font-size: .8rem; color: var(--text2); font-weight: 400; line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .p-foot { display: flex; align-items: center; justify-content: space-between; }
+    .p-foot .price { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -1px; }
+    .p-foot .stock-text { font-size: .72rem; color: var(--text3); font-weight: 500; margin-top: 2px; }
+    .p-foot .stock-text.warn { color: var(--red); }
+    .atc { background: var(--white); color: var(--black); font-size: .76rem; font-weight: 800; padding: .6rem 1.3rem; border-radius: var(--rs); transition: var(--transition); letter-spacing: -.2px; }
+    .atc:hover { background: var(--accent); }
+    .atc:disabled { opacity: .2; cursor: not-allowed; background: var(--white); }
+
+    /* ===== CART PAGE ===== */
+    .cart-wrap { display: grid; grid-template-columns: 1fr 420px; gap: 3rem; align-items: start; padding-top: calc(72px + 3rem); }
+    @media (max-width: 900px) { .cart-wrap { grid-template-columns: 1fr; } }
+    .ct { width: 100%; border-collapse: collapse; }
+    .ct th { text-align: left; font-size: .68rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1.2px; padding: .7rem 0; border-bottom: 1px solid var(--border); }
+    .ct td { padding: 1.2rem 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .ct .ci { display: flex; align-items: center; gap: 1.2rem; }
+    .ct .ci-img { width: 72px; height: 72px; border-radius: var(--rs); object-fit: cover; background: var(--surface); }
+    .ct .ci-name { font-weight: 700; font-size: .95rem; letter-spacing: -.2px; }
+    .ct .ci-cat { font-size: .72rem; color: var(--text3); font-weight: 500; margin-top: 2px; }
+    .ct .ci-price { font-weight: 700; font-family: 'Space Grotesk'; letter-spacing: -.5px; }
+    .ct .ci-qty { font-weight: 700; color: var(--text2); }
+    .ct .rm { background: none; color: var(--text3); font-size: 1rem; padding: .3rem .5rem; border-radius: 6px; transition: var(--transition); }
+    .ct .rm:hover { color: var(--red); background: rgba(255,59,48,.08); }
+
+    .summary { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; position: sticky; top: calc(72px + 2rem); }
+    .summary h3 { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.1rem; letter-spacing: -.5px; margin-bottom: 1.5rem; }
+    .s-label { font-size: .68rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .5rem; display: block; }
+    .s-select { width: 100%; padding: .65rem .9rem; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--rs); font-family: inherit; font-weight: 600; font-size: .85rem; margin-bottom: 1.2rem; transition: var(--transition); appearance: none; }
+    .s-select:focus { outline: none; border-color: var(--accent); }
+    .s-row { display: flex; justify-content: space-between; padding: .45rem 0; font-size: .88rem; color: var(--text2); font-weight: 500; }
+    .s-div { border: none; border-top: 1px solid var(--border); margin: .8rem 0; }
+    .s-total { display: flex; justify-content: space-between; font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; padding: .5rem 0; }
+    .co-btn { width: 100%; padding: 1rem; margin-top: 1.5rem; background: var(--accent); color: var(--black); border-radius: var(--rs); font-size: .88rem; font-weight: 800; letter-spacing: -.2px; transition: var(--transition); }
+    .co-btn:hover { background: #d4ff33; transform: translateY(-1px); }
+    .co-note { text-align: center; font-size: .72rem; color: var(--text3); margin-top: .7rem; font-weight: 500; }
+
+    /* ===== ORDERS ===== */
+    .orders-page { padding-top: calc(72px + 3rem); }
+    .o-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.6rem; margin-bottom: 1rem; transition: var(--transition); }
+    .o-card:hover { border-color: var(--border-h); }
+    .o-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: .5rem; }
+    .o-id { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1rem; letter-spacing: -.5px; }
+    .o-time { font-size: .78rem; color: var(--text3); font-weight: 400; margin-left: .8rem; }
+    .o-badge { padding: .3rem 1rem; border-radius: 99px; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; }
+    .o-badge.pending { background: rgba(200,255,0,.08); color: var(--accent); border: 1px solid rgba(200,255,0,.2); }
+    .o-badge.paid { background: var(--white); color: var(--black); }
+    .o-badge.cancelled { background: rgba(255,59,48,.1); color: var(--red); border: 1px solid rgba(255,59,48,.2); }
+    .o-badge.expired { background: var(--surface); color: var(--text3); border: 1px solid var(--border); }
+    .o-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .o-ml { font-size: .68rem; color: var(--text3); text-transform: uppercase; font-weight: 700; letter-spacing: .8px; margin-bottom: .15rem; }
+    .o-mv { font-weight: 800; font-size: .92rem; }
+    .o-lock { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rs); padding: .8rem 1rem; margin-top: 1rem; display: flex; align-items: center; gap: .8rem; font-size: .82rem; }
+    .o-lock-icon { font-size: 1.2rem; }
+    .o-lock-id { font-weight: 800; font-size: .85rem; }
+    .o-lock-exp { color: var(--text3); font-size: .78rem; font-weight: 500; }
+    .o-actions { display: flex; gap: .6rem; margin-top: 1.2rem; }
+    .o-pay { background: var(--accent); color: var(--black); padding: .55rem 1.5rem; border-radius: var(--rs); font-size: .78rem; font-weight: 800; transition: var(--transition); }
+    .o-pay:hover { background: #d4ff33; }
+    .o-cancel { background: none; border: 1px solid var(--border); color: var(--text3); padding: .55rem 1.3rem; border-radius: var(--rs); font-size: .78rem; font-weight: 600; transition: var(--transition); }
+    .o-cancel:hover { border-color: var(--red); color: var(--red); }
+
+    /* ===== ADMIN ===== */
+    .admin-page { padding-top: calc(72px + 3rem); }
+    .a-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+    @media (max-width: 700px) { .a-grid { grid-template-columns: 1fr; } }
+    .a-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; }
+    .a-card h4 { font-size: .88rem; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+    .a-dot { width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; box-shadow: 0 0 10px rgba(46,204,113,.5); }
+    .a-card .arch { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.1rem; letter-spacing: -.5px; margin-bottom: .3rem; }
+    .a-card .sprint { font-size: .82rem; color: var(--text3); }
+    .a-card ul { list-style: none; }
+    .a-card ul li { font-size: .82rem; color: var(--text2); padding: .35rem 0; font-weight: 500; display: flex; align-items: center; gap: .5rem; }
+    .a-card ul li::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+    .inv-t { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .inv-t th { text-align: left; font-size: .68rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: .8rem 1.2rem; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .inv-t td { padding: .8rem 1.2rem; border-bottom: 1px solid var(--border); font-weight: 600; font-size: .88rem; }
+    .tax-bar { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1rem; }
+    .tax-bar .f { flex: 1; min-width: 180px; }
+    .tax-bar input, .tax-bar select { width: 100%; padding: .6rem .9rem; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--rs); font-family: inherit; font-weight: 600; font-size: .88rem; }
+    .tax-bar input:focus, .tax-bar select:focus { outline: none; border-color: var(--accent); }
+    .tax-btn { background: var(--white); color: var(--black); padding: .65rem 1.5rem; border-radius: var(--rs); font-size: .78rem; font-weight: 800; transition: var(--transition); }
+    .tax-btn:hover { background: var(--accent); }
+    .tax-res { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rs); padding: 1rem 1.3rem; font-size: .88rem; font-weight: 600; }
+
+    /* ===== EMPTY ===== */
+    .empty { text-align: center; padding: 6rem 2rem; }
+    .empty .e-icon { font-size: 3.5rem; margin-bottom: 1.2rem; opacity: .4; }
+    .empty h3 { font-family: 'Space Grotesk'; font-weight: 700; font-size: 1.2rem; letter-spacing: -.5px; margin-bottom: .3rem; }
+    .empty p { color: var(--text3); font-size: .88rem; font-weight: 400; }
+
+    /* ===== TOAST ===== */
+    .toast-box { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; gap: .5rem; align-items: flex-end; }
+    .toast { padding: .7rem 1.4rem; border-radius: var(--rs); font-size: .82rem; font-weight: 700; animation: tUp .35s cubic-bezier(.4,0,.2,1); letter-spacing: -.2px; }
+    .toast.ok { background: var(--accent); color: var(--black); }
+    .toast.err { background: var(--red); color: var(--white); }
+    @keyframes tUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ===== FOOTER ===== */
+    .footer { border-top: 1px solid var(--border); margin-top: 6rem; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; padding: 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-brand { display: flex; align-items: center; gap: .6rem; }
+    .footer-brand .fm { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .6rem; color: var(--black); }
+    .footer-brand span { font-family: 'Space Grotesk'; font-weight: 700; font-size: .95rem; color: var(--text3); }
+    .footer-copy { font-size: .75rem; color: var(--text3); font-weight: 400; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .78rem; color: var(--text3); font-weight: 500; transition: var(--transition); }
+    .footer-links a:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav" id="navbar">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">V</div>
+      <div class="logo-text">VANTA</div>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="go('shop',this)">Shop</button>
+      <button class="nav-link" onclick="go('orders',this)">Orders</button>
+      <button class="nav-link" onclick="go('admin',this)">Dashboard</button>
+    </div>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="go('cart',document.querySelectorAll('.nav-link')[0])">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="count" id="cartCount">0</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toasts"></div>
+
+<!-- ===== SHOP ===== -->
+<div class="page active" id="page-shop">
+  <div class="hero">
+    <div class="hero-media"><img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=1600&q=80" alt=""></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-body">
+      <div class="hero-chip"><div class="pulse"></div> Sprint 3 Live</div>
+      <h1 class="hero-title">Engineered for<br>the <span class="accent">Modern</span> Desk.</h1>
+      <p class="hero-sub">Premium peripherals with real-time stock reservation, dynamic location-based tax, and instant checkout — powered by the SEPM engine.</p>
+      <a class="hero-cta" href="#catalog" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
+        Browse Collection
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-scroll"><svg class="arrow" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+
+  <div class="wrap section" id="catalog">
+    <div class="section-head">
+      <div class="section-label">Collection</div>
+      <div class="section-title">All Products</div>
+      <div class="section-desc">Curated gear for your workspace. Every item ships with a 5-minute checkout lock.</div>
+    </div>
+    <div class="filters">
+      <div class="pills" id="pills"></div>
+      <div class="result-count" id="pCount"></div>
+    </div>
+    <div class="grid" id="pGrid"></div>
+  </div>
+</div>
+
+<!-- ===== CART ===== -->
+<div class="page" id="page-cart">
+  <div class="wrap">
+    <div class="cart-wrap" id="cartBox"></div>
+  </div>
+</div>
+
+<!-- ===== ORDERS ===== -->
+<div class="page orders-page" id="page-orders">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;">
+      <div class="section-head" style="margin-bottom:0;"><div class="section-label">Account</div><div class="section-title">Orders</div><div class="section-desc">Track, pay, or cancel.</div></div>
+      <button class="tax-btn" onclick="loadOrders()" style="margin-bottom:.3rem;">Refresh</button>
+    </div>
+    <div id="oBox"></div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div class="page admin-page" id="page-admin">
+  <div class="wrap">
+    <div class="section-head"><div class="section-label">System</div><div class="section-title">Admin Dashboard</div><div class="section-desc">Health, inventory &amp; tax engine.</div></div>
+    <div class="a-grid" id="aCards"></div>
+    <div class="section-head"><div class="section-label">Stock</div><div class="section-title">Inventory</div></div>
+    <table class="inv-t"><thead><tr><th>Product ID</th><th>Available</th><th>Reserved</th><th>Status</th></tr></thead><tbody id="iBody"></tbody></table>
+    <div class="section-head" style="margin-top:3rem;"><div class="section-label">Tax</div><div class="section-title">Rate Calculator</div></div>
+    <div class="tax-bar">
+      <div class="f"><label class="s-label">Subtotal ($)</label><input type="number" id="txS" value="100" min="0" step=".01"></div>
+      <div class="f"><label class="s-label">Jurisdiction</label><select id="txL"></select></div>
+      <button class="tax-btn" onclick="calcTax()">Calculate</button>
+    </div>
+    <div id="txR"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="fm">V</div><span>VANTA</span></div>
+    <div class="footer-links"><a href="#">Shop</a><a href="#">Orders</a><a href="#">Admin</a><a href="#">GitHub</a></div>
+    <div class="footer-copy">&copy; 2026 VANTA — SEPM Sprint 3 Evaluation</div>
+  </div>
+</div>
+
+<script>
+const A='';
+const IMG={
+  'prod-001':'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80',
+  'prod-002':'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80',
+  'prod-003':'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+  'prod-004':'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80',
+  'prod-005':'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80'
+};
+const FIMG='https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=600&q=80';
+let CID=localStorage.getItem('cs')||((()=>{const i='c-'+Date.now().toString(36);localStorage.setItem('cs',i);return i})());
+let products=[],loc='US-CA';
+
+// Scroll nav
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)});
+
+// Nav
+function go(p,btn){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  window.scrollTo({top:0});
+  if(p==='cart')loadCart();if(p==='orders')loadOrders();if(p==='admin')loadAdmin();
+}
+
+// Toast
+function toast(m,ok=true){const d=document.createElement('div');d.className='toast '+(ok?'ok':'err');d.textContent=m;document.getElementById('toasts').appendChild(d);setTimeout(()=>d.remove(),3200)}
+
+// Products
+async function loadProducts(){
+  try{
+    const[pr,ir]=await Promise.all([fetch(A+'/api/catalog'),fetch(A+'/api/inventory')]);
+    const pj=await pr.json(),ij=await ir.json();
+    products=pj.data||[];
+    const inv={};(ij.data||[]).forEach(i=>inv[i.productId]=i);
+    products.forEach(p=>{const i=inv[p.id];p._s=i?i.stockAvailable:0;p._l=i?i.stockAvailable<=(i.lowStockThreshold||5):false;p._img=IMG[p.id]||FIMG});
+    const cats=['All',...new Set(products.map(p=>p.category))];
+    document.getElementById('pills').innerHTML=cats.map((c,i)=>`<button class="pill ${i===0?'on':''}" onclick="filt('${c}',this)">${c}</button>`).join('');
+    render(products);
+  }catch(e){document.getElementById('pGrid').innerHTML=`<div class="empty"><h3>Error</h3><p>${e.message}</p></div>`}
+}
+function filt(c,b){document.querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));b.classList.add('on');render(c==='All'?products:products.filter(p=>p.category===c))}
+function render(list){
+  document.getElementById('pCount').textContent=list.length+' product'+(list.length!==1?'s':'');
+  if(!list.length){document.getElementById('pGrid').innerHTML='<div class="empty"><div class="e-icon">◆</div><h3>Nothing here</h3></div>';return}
+  document.getElementById('pGrid').innerHTML=list.map(p=>`
+    <div class="p-card"><div class="thumb"><img src="${p._img}" alt="${p.name}" loading="lazy"><div class="cat-tag">${p.category}</div><div class="stock-led ${p._s>0?(p._l?'low':'ok'):'low'}"></div></div>
+    <div class="p-body"><div class="p-name">${p.name}</div><div class="p-desc">${p.description||'Precision-engineered for the modern professional workspace.'}</div>
+    <div class="p-foot"><div><div class="price">$${Number(p.price).toFixed(2)}</div><div class="stock-text ${p._l?'warn':''}">${p._s>0?p._s+' in stock':'Out of stock'}${p._l&&p._s>0?' · Low':''}</div></div>
+    <button class="atc" onclick="atc('${p.id}')" ${p._s<=0?'disabled':''}>Add to Cart</button></div></div></div>
+  `).join('')
+}
+
+// Cart
+async function atc(id){try{await fetch(A+`/api/cart/${CID}/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({productId:id,quantity:1})});toast('Added to cart');badge()}catch(e){toast('Error',false)}}
+async function badge(){try{const r=await fetch(A+`/api/cart/${CID}?location=${loc}`);const j=await r.json();document.getElementById('cartCount').textContent=(j.data?.items||[]).reduce((s,i)=>s+i.quantity,0)}catch(e){document.getElementById('cartCount').textContent='0'}}
+
+async function loadCart(){
+  const B=document.getElementById('cartBox');
+  try{
+    const r=await fetch(A+`/api/cart/${CID}?location=${loc}`);const j=await r.json();const c=j.data;
+    if(!c||!c.items||!c.items.length){B.innerHTML='<div class="empty" style="grid-column:1/-1;"><div class="e-icon">◆</div><h3>Your cart is empty</h3><p>Explore the collection and add something.</p></div>';return}
+    const t=c.tax||{};
+    B.innerHTML=`<div><div class="section-head"><div class="section-label">Cart</div><div class="section-title">Your Items</div></div>
+    <table class="ct"><thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th></th></tr></thead><tbody>${
+      c.items.map(i=>{const p=products.find(x=>x.id===i.productId)||{};return`<tr><td><div class="ci"><img class="ci-img" src="${IMG[i.productId]||FIMG}"><div><div class="ci-name">${i.name||p.name||i.productId}</div><div class="ci-cat">${p.category||''}</div></div></div></td><td class="ci-price">$${Number(i.price||p.price||0).toFixed(2)}</td><td class="ci-qty">${i.quantity}</td><td class="ci-price">$${(Number(i.price||p.price||0)*i.quantity).toFixed(2)}</td><td><button class="rm" onclick="rmItem('${i.productId}')">✕</button></td></tr>`}).join('')
+    }</tbody></table></div>
+    <div class="summary"><h3>Order Summary</h3>
+    <label class="s-label">Location</label>
+    <select class="s-select" onchange="loc=this.value;loadCart()">
+      ${[['US-CA','California · 9.50%'],['US-NY','New York · 8.875%'],['US-TX','Texas · 8.25%'],['US-WA','Washington · 10.25%'],['US-FL','Florida · 7.00%'],['EU-DE','Germany · 19.00%'],['EU-FR','France · 20.00%'],['EU-UK','UK · 20.00%'],['IN-KA','Karnataka · 18.00%'],['IN-MH','Maharashtra · 18.00%']].map(([v,l])=>`<option value="${v}" ${loc===v?'selected':''}>${l}</option>`).join('')}
+    </select>
+    <div class="s-row"><span>Subtotal</span><span>$${Number(c.subtotal||0).toFixed(2)}</span></div>
+    <div class="s-row"><span>Tax (${t.jurisdiction||loc} @ ${((t.taxRate||0)*100).toFixed(1)}%)</span><span>$${Number(t.taxAmount||0).toFixed(2)}</span></div>
+    <hr class="s-div">
+    <div class="s-total"><span>Total</span><span>$${Number(t.totalAmount||c.subtotal||0).toFixed(2)}</span></div>
+    <button class="co-btn" onclick="checkout()">Reserve & Checkout</button>
+    <div class="co-note">🔒 Stock locked for 5 minutes at checkout</div></div>`;
+  }catch(e){B.innerHTML='<div class="empty" style="grid-column:1/-1;"><div class="e-icon">◆</div><h3>Cart is empty</h3></div>'}
+}
+async function rmItem(id){try{await fetch(A+`/api/cart/${CID}/items/${id}`,{method:'DELETE'});toast('Removed');loadCart();badge()}catch(e){toast('Error',false)}}
+async function checkout(){
+  try{const r=await fetch(A+`/api/cart/${CID}/checkout`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customerId:'web-user',locationCode:loc})});const j=await r.json();if(!j.success)throw new Error(j.error);
+  toast('Checkout complete — stock reserved');localStorage.removeItem('cs');CID='c-'+Date.now().toString(36);localStorage.setItem('cs',CID);document.getElementById('cartCount').textContent='0';
+  go('orders',document.querySelectorAll('.nav-link')[1]);loadProducts()}catch(e){toast('Failed: '+e.message,false)}
+}
+
+// Orders
+async function loadOrders(){
+  const B=document.getElementById('oBox');
+  try{const r=await fetch(A+'/api/orders');const j=await r.json();const orders=(j.data||[]).slice().reverse();
+  if(!orders.length){B.innerHTML='<div class="empty"><div class="e-icon">◆</div><h3>No orders</h3><p>Complete a checkout first.</p></div>';return}
+  B.innerHTML=orders.map(o=>`
+    <div class="o-card"><div class="o-top"><div><span class="o-id">${o.id}</span><span class="o-time">${o.createdAt?new Date(o.createdAt).toLocaleString():''}</span></div><span class="o-badge ${o.status.toLowerCase()}">${o.status}</span></div>
+    <div class="o-meta"><div><div class="o-ml">Items</div><div class="o-mv">${(o.items||[]).length}</div></div><div><div class="o-ml">Total</div><div class="o-mv">$${Number(o.totalAmount||0).toFixed(2)}</div></div><div><div class="o-ml">Region</div><div class="o-mv">${(o.shippingAddress?.locationCode)||(o.taxDetails?.jurisdiction)||'—'}</div></div><div><div class="o-ml">Payment</div><div class="o-mv">${o.paymentDetails?o.paymentDetails.method:'—'}</div></div></div>
+    ${o.reservationId?`<div class="o-lock"><div class="o-lock-icon">🔒</div><div><div class="o-lock-id">${o.reservationId}</div><div class="o-lock-exp">Expires ${o.reservationExpiresAt?new Date(o.reservationExpiresAt).toLocaleTimeString():'—'}</div></div></div>`:''}
+    <div class="o-actions">${o.status==='PENDING'?`<button class="o-pay" onclick="pay('${o.id}')">Pay Now</button><button class="o-cancel" onclick="cancel('${o.id}')">Cancel</button>`:''}${o.status==='PAID'?'<span style="color:#2ecc71;font-weight:800;font-size:.82rem;">✓ Confirmed</span>':''}${o.status==='CANCELLED'?'<span style="color:var(--red);font-weight:800;font-size:.82rem;">✕ Cancelled</span>':''}${o.status==='EXPIRED'?'<span style="color:var(--text3);font-weight:800;font-size:.82rem;">⏰ Expired</span>':''}</div></div>
+  `).join('')}catch(e){B.innerHTML=`<div class="empty"><h3>Error</h3><p>${e.message}</p></div>`}
+}
+async function pay(id){try{const r=await fetch(A+`/api/orders/${id}/pay`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:'CREDIT_CARD'})});const j=await r.json();if(!j.success)throw new Error(j.error);toast('Payment confirmed');loadOrders();loadProducts()}catch(e){toast(e.message,false)}}
+async function cancel(id){try{await fetch(A+`/api/orders/${id}/cancel`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reason:'Web cancel'})});toast('Cancelled');loadOrders();loadProducts()}catch(e){toast(e.message,false)}}
+
+// Admin
+async function loadAdmin(){
+  try{const r=await fetch(A+'/health');const h=await r.json();document.getElementById('aCards').innerHTML=`<div class="a-card"><h4><div class="a-dot"></div>System Health</h4><div class="arch">${h.architecture}</div><div class="sprint">${h.sprint}</div></div><div class="a-card"><h4>Features</h4><ul>${(h.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul></div>`}catch(e){}
+  try{const r=await fetch(A+'/api/inventory');const j=await r.json();document.getElementById('iBody').innerHTML=(j.data||[]).map(i=>`<tr><td style="font-weight:800;">${i.productId}</td><td>${i.stockAvailable}</td><td>${i.stockReserved||0}</td><td>${i.stockAvailable<=(i.lowStockThreshold||5)?'<span style="color:var(--red);font-weight:800;">⚠ Low</span>':'<span style="color:#2ecc71;font-weight:800;">✓ Healthy</span>'}</td></tr>`).join('')}catch(e){}
+  try{const r=await fetch(A+'/api/tax/jurisdictions');const j=await r.json();document.getElementById('txL').innerHTML=(j.data||[]).map(x=>`<option value="${x.code}">${x.code} — ${x.name} (${(x.rate*100).toFixed(1)}%)</option>`).join('')}catch(e){}
+}
+async function calcTax(){try{const s=document.getElementById('txS').value,l=document.getElementById('txL').value;const r=await fetch(A+`/api/tax/quote?subtotal=${s}&locationCode=${l}`);const j=await r.json();const d=j.data;document.getElementById('txR').innerHTML=`<div class="tax-res"><strong>${d.jurisdiction}</strong> — Rate: ${(d.taxRate*100).toFixed(2)}% &nbsp;·&nbsp; Subtotal: $${Number(d.subtotal).toFixed(2)} &nbsp;·&nbsp; Tax: $${Number(d.taxAmount).toFixed(2)} &nbsp;·&nbsp; <strong>Total: $${Number(d.totalAmount).toFixed(2)}</strong></div>`}catch(e){document.getElementById('txR').innerHTML=`<div class="tax-res" style="color:var(--red);">${e.message}</div>`}}
+
+// Init
+loadProducts();badge();
+</script>
+</body>
+</html>

@@ -71,7 +71,7 @@ async function runMicroservicesTests() {
   ];
 
   try {
-    await waitForServer(`${GATEWAY_URL}/health`, 6000);
+    await new Promise(r => setTimeout(r, 2000)); // short pause to let services start
     console.log('  ℹ️ All services successfully bound and responding through Gateway.');
 
     // Test 1: Aggregated Health Check

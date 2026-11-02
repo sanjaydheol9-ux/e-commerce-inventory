@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { seedDatabase } = require('./database/seed');
 const catalogRoutes = require('./modules/catalog/catalog.routes');
@@ -10,6 +11,9 @@ function createApp() {
 
   app.use(cors());
   app.use(express.json());
+
+  // Serve the frontend
+  app.use(express.static(path.join(__dirname, 'public')));
 
   // Automatic database seed check
   seedDatabase();
@@ -35,7 +39,14 @@ function createApp() {
   app.use('/api/inventory', inventoryRoutes);
   app.use('/api', orderRoutes);
 
-  // Global 404 handler
+  // SPA fallback — serve index.html for non-API routes
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api/') || req.path === '/health') return next();
+    if (req.method !== 'GET') return next();
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+
+  // Global 404 handler (only for /api routes now)
   app.use((req, res) => {
     res.status(404).json({ success: false, error: `Route not found: ${req.method} ${req.url}` });
   });

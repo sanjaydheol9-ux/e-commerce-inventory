@@ -3,7 +3,7 @@
     {
       "id": "inv-001",
       "productId": "prod-001",
-      "stockAvailable": 40,
+      "stockAvailable": 32,
       "stockReserved": 0,
       "lowStockThreshold": 10
     },
@@ -111,6 +111,66 @@
       "expiresAt": "2026-11-02T16:28:32.049Z",
       "createdAt": "2026-11-02T16:23:32.049Z",
       "confirmedAt": "2026-11-02T16:23:32.066Z"
+    },
+    {
+      "id": "res-c89254cb",
+      "orderId": "ord-93bdf096",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:32:22.771Z",
+      "createdAt": "2026-11-02T16:27:22.771Z",
+      "confirmedAt": "2026-11-02T16:27:22.787Z"
+    },
+    {
+      "id": "res-aad0fd1c",
+      "orderId": "ord-bd6731d0",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:32:54.138Z",
+      "createdAt": "2026-11-02T16:27:54.138Z",
+      "confirmedAt": "2026-11-02T16:27:54.153Z"
+    },
+    {
+      "id": "res-7039f99d",
+      "orderId": "ord-6598da32",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:54:55.563Z",
+      "createdAt": "2026-11-02T16:49:55.563Z",
+      "confirmedAt": "2026-11-02T16:49:55.578Z"
+    },
+    {
+      "id": "res-5a574bca",
+      "orderId": "ord-5f314111",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:55:20.538Z",
+      "createdAt": "2026-11-02T16:50:20.538Z",
+      "confirmedAt": "2026-11-02T16:50:20.554Z"
     }
   ]
 }

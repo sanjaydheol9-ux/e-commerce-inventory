@@ -6,8 +6,8 @@
       "category": "Electronics",
       "price": 129.99,
       "description": "Compact 75% Bluetooth/2.4G RGB mechanical keyboard with hot-swappable switches",
-      "createdAt": "2026-11-02T16:23:31.806Z",
-      "updatedAt": "2026-11-02T16:23:31.807Z"
+      "createdAt": "2026-11-02T16:50:18.262Z",
+      "updatedAt": "2026-11-02T16:50:18.263Z"
     },
     {
       "id": "prod-002",
@@ -15,8 +15,8 @@
       "category": "Electronics",
       "price": 69.99,
       "description": "High-precision 26,000 DPI sensor with ultra-lightweight chassis",
-      "createdAt": "2026-11-02T16:23:31.808Z",
-      "updatedAt": "2026-11-02T16:23:31.808Z"
+      "createdAt": "2026-11-02T16:50:18.263Z",
+      "updatedAt": "2026-11-02T16:50:18.263Z"
     },
     {
       "id": "prod-003",
@@ -24,8 +24,8 @@
       "category": "Audio",
       "price": 249.99,
       "description": "Active noise cancelling wireless over-ear audiophile headphones",
-      "createdAt": "2026-11-02T16:23:31.808Z",
-      "updatedAt": "2026-11-02T16:23:31.808Z"
+      "createdAt": "2026-11-02T16:50:18.263Z",
+      "updatedAt": "2026-11-02T16:50:18.263Z"
     },
     {
       "id": "prod-004",
@@ -33,8 +33,8 @@
       "category": "Electronics",
       "price": 599.99,
       "description": "Curved 144Hz IPS display with 99% sRGB color gamut",
-      "createdAt": "2026-11-02T16:23:31.808Z",
-      "updatedAt": "2026-11-02T16:23:31.808Z"
+      "createdAt": "2026-11-02T16:50:18.263Z",
+      "updatedAt": "2026-11-02T16:50:18.263Z"
     },
     {
       "id": "prod-005",
@@ -42,8 +42,8 @@
       "category": "Accessories",
       "price": 39.99,
       "description": "Natural organic felt and vegan leather desk pad",
-      "createdAt": "2026-11-02T16:23:31.809Z",
-      "updatedAt": "2026-11-02T16:23:31.809Z"
+      "createdAt": "2026-11-02T16:50:18.263Z",
+      "updatedAt": "2026-11-02T16:50:18.263Z"
     },
     {
       "id": "prod-test-01",
@@ -51,19 +51,19 @@
       "category": "Furniture",
       "price": 199.99,
       "description": "Ergonomic racing style chair",
-      "createdAt": "2026-11-02T16:23:31.821Z",
-      "updatedAt": "2026-11-02T16:23:31.821Z"
+      "createdAt": "2026-11-02T16:50:18.282Z",
+      "updatedAt": "2026-11-02T16:50:18.282Z"
     }
   ],
   "inventory": [
     {
       "id": "inv-001",
       "productId": "prod-001",
-      "stockAvailable": 50,
+      "stockAvailable": 46,
       "stockReserved": 0,
       "lowStockThreshold": 10,
-      "createdAt": "2026-11-02T16:23:31.809Z",
-      "updatedAt": "2026-11-02T16:23:31.809Z"
+      "createdAt": "2026-11-02T16:50:18.264Z",
+      "updatedAt": "2026-11-02T17:11:22.005Z"
     },
     {
       "id": "inv-002",
@@ -71,8 +71,8 @@
       "stockAvailable": 30,
       "stockReserved": 0,
       "lowStockThreshold": 5,
-      "createdAt": "2026-11-02T16:23:31.809Z",
-      "updatedAt": "2026-11-02T16:23:31.908Z"
+      "createdAt": "2026-11-02T16:50:18.271Z",
+      "updatedAt": "2026-11-02T17:03:42.629Z"
     },
     {
       "id": "inv-003",
@@ -80,17 +80,17 @@
       "stockAvailable": 15,
       "stockReserved": 0,
       "lowStockThreshold": 3,
-      "createdAt": "2026-11-02T16:23:31.810Z",
-      "updatedAt": "2026-11-02T16:23:31.934Z"
+      "createdAt": "2026-11-02T16:50:18.271Z",
+      "updatedAt": "2026-11-02T16:50:18.424Z"
     },
     {
       "id": "inv-004",
       "productId": "prod-004",
-      "stockAvailable": 2,
-      "stockReserved": 6,
+      "stockAvailable": 8,
+      "stockReserved": 0,
       "lowStockThreshold": 2,
-      "createdAt": "2026-11-02T16:23:31.819Z",
-      "updatedAt": "2026-11-02T16:23:31.894Z"
+      "createdAt": "2026-11-02T16:50:18.278Z",
+      "updatedAt": "2026-11-02T16:58:12.444Z"
     },
     {
       "id": "inv-005",
@@ -98,14 +98,14 @@
       "stockAvailable": 100,
       "stockReserved": 0,
       "lowStockThreshold": 15,
-      "createdAt": "2026-11-02T16:23:31.819Z",
-      "updatedAt": "2026-11-02T16:23:31.819Z"
+      "createdAt": "2026-11-02T16:50:18.279Z",
+      "updatedAt": "2026-11-02T16:50:18.279Z"
     }
   ],
   "reservations": [
     {
-      "id": "res-275f3941",
-      "orderId": "ord-8e007ba0",
+      "id": "res-94dd78a6",
+      "orderId": "ord-9d92e150",
       "items": [
         {
           "productId": "prod-002",
@@ -117,14 +117,14 @@
       ],
       "status": "CONFIRMED",
       "ttlSeconds": 300,
-      "expiresAt": "2026-11-02T16:28:31.864Z",
-      "createdAt": "2026-11-02T16:23:31.865Z",
-      "updatedAt": "2026-11-02T16:23:31.914Z",
-      "confirmedAt": "2026-11-02T16:23:31.914Z"
+      "expiresAt": "2026-11-02T16:55:18.322Z",
+      "createdAt": "2026-11-02T16:50:18.322Z",
+      "updatedAt": "2026-11-02T16:50:18.374Z",
+      "confirmedAt": "2026-11-02T16:50:18.374Z"
     },
     {
-      "id": "res-88bfb795",
-      "orderId": "ord-099a7450",
+      "id": "res-6e5d98ef",
+      "orderId": "ord-9112fd2e",
       "items": [
         {
           "productId": "prod-004",
@@ -134,15 +134,17 @@
           "lineTotal": 3599.94
         }
       ],
-      "status": "ACTIVE",
+      "status": "EXPIRED",
       "ttlSeconds": 300,
-      "expiresAt": "2026-11-02T16:28:31.900Z",
-      "createdAt": "2026-11-02T16:23:31.900Z",
-      "updatedAt": "2026-11-02T16:23:31.900Z"
+      "expiresAt": "2026-11-02T16:55:18.355Z",
+      "createdAt": "2026-11-02T16:50:18.355Z",
+      "updatedAt": "2026-11-02T16:58:12.446Z",
+      "releasedAt": "2026-11-02T16:58:12.446Z",
+      "releaseReason": "EXPIRED"
     },
     {
-      "id": "res-3c4ec2f9",
-      "orderId": "ord-ebb48f70",
+      "id": "res-78b269fd",
+      "orderId": "ord-0ebcde7b",
       "items": [
         {
           "productId": "prod-003",
@@ -154,16 +156,62 @@
       ],
       "status": "EXPIRED",
       "ttlSeconds": 300,
-      "expiresAt": "2026-11-02T16:23:30.933Z",
-      "createdAt": "2026-11-02T16:23:31.932Z",
-      "updatedAt": "2026-11-02T16:23:31.944Z",
-      "releasedAt": "2026-11-02T16:23:31.944Z",
+      "expiresAt": "2026-11-02T16:50:17.423Z",
+      "createdAt": "2026-11-02T16:50:18.397Z",
+      "updatedAt": "2026-11-02T16:50:18.432Z",
+      "releasedAt": "2026-11-02T16:50:18.432Z",
       "releaseReason": "EXPIRED"
+    },
+    {
+      "id": "res-3b6451b3",
+      "orderId": "ord-5defaa4d",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 1,
+          "lineTotal": 129.99
+        },
+        {
+          "productId": "prod-002",
+          "name": "Ergonomic Gaming Mouse",
+          "price": 69.99,
+          "quantity": 1,
+          "lineTotal": 69.99
+        }
+      ],
+      "status": "EXPIRED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T17:03:32.976Z",
+      "createdAt": "2026-11-02T16:58:32.976Z",
+      "updatedAt": "2026-11-02T17:03:42.632Z",
+      "releasedAt": "2026-11-02T17:03:42.632Z",
+      "releaseReason": "EXPIRED"
+    },
+    {
+      "id": "res-460c5701",
+      "orderId": "ord-2ded6e51",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 4,
+          "lineTotal": 519.96
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T17:16:11.432Z",
+      "createdAt": "2026-11-02T17:11:11.432Z",
+      "updatedAt": "2026-11-02T17:11:22.005Z",
+      "confirmedAt": "2026-11-02T17:11:22.005Z"
     }
   ],
   "orders": [
     {
-      "id": "ord-8e007ba0",
+      "id": "ord-9d92e150",
       "customerId": "cust-mono-user",
       "items": [
         {
@@ -186,24 +234,24 @@
       },
       "totalAmount": 383.2,
       "status": "PAID",
-      "reservationId": "res-275f3941",
-      "reservationExpiresAt": "2026-11-02T16:28:31.864Z",
+      "reservationId": "res-94dd78a6",
+      "reservationExpiresAt": "2026-11-02T16:55:18.322Z",
       "shippingAddress": {
         "state": "CA",
         "locationCode": "US-CA"
       },
       "paymentDetails": {
-        "transactionId": "txn-1793636611914",
+        "transactionId": "txn-1793638218375",
         "method": "CREDIT_CARD",
         "amount": 383.2,
-        "timestamp": "2026-11-02T16:23:31.914Z"
+        "timestamp": "2026-11-02T16:50:18.375Z"
       },
-      "createdAt": "2026-11-02T16:23:31.851Z",
-      "updatedAt": "2026-11-02T16:23:31.914Z",
-      "paidAt": "2026-11-02T16:23:31.914Z"
+      "createdAt": "2026-11-02T16:50:18.314Z",
+      "updatedAt": "2026-11-02T16:50:18.375Z",
+      "paidAt": "2026-11-02T16:50:18.375Z"
     },
     {
-      "id": "ord-099a7450",
+      "id": "ord-9112fd2e",
       "customerId": "cust-concurrent-1",
       "items": [
         {
@@ -225,18 +273,18 @@
         "totalAmount": 3779.94
       },
       "totalAmount": 3779.94,
-      "status": "PENDING",
-      "reservationId": "res-88bfb795",
-      "reservationExpiresAt": "2026-11-02T16:28:31.900Z",
+      "status": "EXPIRED",
+      "reservationId": "res-6e5d98ef",
+      "reservationExpiresAt": "2026-11-02T16:55:18.355Z",
       "shippingAddress": {
         "locationCode": "DEFAULT"
       },
       "paymentDetails": null,
-      "createdAt": "2026-11-02T16:23:31.894Z",
-      "updatedAt": "2026-11-02T16:23:31.907Z"
+      "createdAt": "2026-11-02T16:50:18.348Z",
+      "updatedAt": "2026-11-02T17:11:16.830Z"
     },
     {
-      "id": "ord-ebb48f70",
+      "id": "ord-0ebcde7b",
       "customerId": "cust-expiry-test",
       "items": [
         {
@@ -259,14 +307,93 @@
       },
       "totalAmount": 1049.96,
       "status": "EXPIRED",
-      "reservationId": "res-3c4ec2f9",
-      "reservationExpiresAt": "2026-11-02T16:28:31.932Z",
+      "reservationId": "res-78b269fd",
+      "reservationExpiresAt": "2026-11-02T16:55:18.397Z",
       "shippingAddress": {
         "locationCode": "DEFAULT"
       },
       "paymentDetails": null,
-      "createdAt": "2026-11-02T16:23:31.931Z",
-      "updatedAt": "2026-11-02T16:23:31.944Z"
+      "createdAt": "2026-11-02T16:50:18.388Z",
+      "updatedAt": "2026-11-02T16:50:18.438Z"
+    },
+    {
+      "id": "ord-5defaa4d",
+      "customerId": "web-user-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 1,
+          "lineTotal": 129.99
+        },
+        {
+          "productId": "prod-002",
+          "name": "Ergonomic Gaming Mouse",
+          "price": 69.99,
+          "quantity": 1,
+          "lineTotal": 69.99
+        }
+      ],
+      "subtotal": 199.98,
+      "taxDetails": {
+        "jurisdiction": "IN-KA",
+        "taxRule": "India Karnataka Goods & Services Tax (GST)",
+        "taxRate": 0.18,
+        "taxRatePercentage": "18.00%",
+        "subtotal": 199.98,
+        "taxAmount": 36,
+        "totalAmount": 235.98
+      },
+      "totalAmount": 235.98,
+      "status": "PENDING",
+      "reservationId": "res-3b6451b3",
+      "reservationExpiresAt": "2026-11-02T17:03:32.976Z",
+      "shippingAddress": {
+        "locationCode": "IN-KA"
+      },
+      "paymentDetails": null,
+      "createdAt": "2026-11-02T16:58:32.975Z",
+      "updatedAt": "2026-11-02T16:58:32.985Z"
+    },
+    {
+      "id": "ord-2ded6e51",
+      "customerId": "web-user",
+      "items": [
+        {
+          "productId": "prod-001",
+          "name": "Wireless Mechanical Keyboard",
+          "price": 129.99,
+          "quantity": 4,
+          "lineTotal": 519.96
+        }
+      ],
+      "subtotal": 519.96,
+      "taxDetails": {
+        "jurisdiction": "EU-DE",
+        "taxRule": "Germany Standard Mehrwertsteuer (MwSt)",
+        "taxRate": 0.19,
+        "taxRatePercentage": "19.00%",
+        "subtotal": 519.96,
+        "taxAmount": 98.79,
+        "totalAmount": 618.75
+      },
+      "totalAmount": 618.75,
+      "status": "PAID",
+      "reservationId": "res-460c5701",
+      "reservationExpiresAt": "2026-11-02T17:16:11.432Z",
+      "shippingAddress": {
+        "locationCode": "EU-DE"
+      },
+      "paymentDetails": {
+        "transactionId": "txn-1793639482006",
+        "method": "CREDIT_CARD",
+        "amount": 618.75,
+        "timestamp": "2026-11-02T17:11:22.006Z"
+      },
+      "createdAt": "2026-11-02T17:11:11.431Z",
+      "updatedAt": "2026-11-02T17:11:22.006Z",
+      "paidAt": "2026-11-02T17:11:22.006Z"
     }
   ],
   "order_items": [],
@@ -280,29 +407,76 @@
         }
       ],
       "locationCode": "DEFAULT",
-      "createdAt": "2026-11-02T16:23:31.836Z",
-      "updatedAt": "2026-11-02T16:23:31.843Z"
+      "createdAt": "2026-11-02T16:50:18.297Z",
+      "updatedAt": "2026-11-02T16:50:18.304Z"
     },
     {
       "id": "test-cart-mono-02",
       "items": [],
       "locationCode": "DEFAULT",
-      "createdAt": "2026-11-02T16:23:31.844Z",
-      "updatedAt": "2026-11-02T16:23:31.874Z"
+      "createdAt": "2026-11-02T16:50:18.304Z",
+      "updatedAt": "2026-11-02T16:50:18.339Z"
     },
     {
       "id": "test-cart-mono-concurrency",
       "items": [],
       "locationCode": "DEFAULT",
-      "createdAt": "2026-11-02T16:23:31.884Z",
-      "updatedAt": "2026-11-02T16:23:31.907Z"
+      "createdAt": "2026-11-02T16:50:18.341Z",
+      "updatedAt": "2026-11-02T16:50:18.368Z"
     },
     {
       "id": "test-cart-expiry",
       "items": [],
       "locationCode": "DEFAULT",
-      "createdAt": "2026-11-02T16:23:31.923Z",
-      "updatedAt": "2026-11-02T16:23:31.933Z"
+      "createdAt": "2026-11-02T16:50:18.381Z",
+      "updatedAt": "2026-11-02T16:50:18.415Z"
+    },
+    {
+      "id": "web-cart-mvzi62e9",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:58:14.822Z",
+      "updatedAt": "2026-11-02T16:58:32.991Z"
+    },
+    {
+      "id": "web-cart-mvzi6o3z",
+      "items": [
+        {
+          "productId": "prod-005",
+          "quantity": 1
+        }
+      ],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:58:42.961Z",
+      "updatedAt": "2026-11-02T17:07:02.988Z"
+    },
+    {
+      "id": "web-cart-mvzif7xy",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T17:05:21.914Z",
+      "updatedAt": "2026-11-02T17:05:21.914Z"
+    },
+    {
+      "id": "c-mvzim7kf",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T17:10:48.018Z",
+      "updatedAt": "2026-11-02T17:10:48.018Z"
+    },
+    {
+      "id": "c-mvzimg0b",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T17:10:58.958Z",
+      "updatedAt": "2026-11-02T17:11:11.433Z"
+    },
+    {
+      "id": "c-mvziwwyp",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T17:19:07.493Z",
+      "updatedAt": "2026-11-02T17:19:07.493Z"
     }
   ]
 }

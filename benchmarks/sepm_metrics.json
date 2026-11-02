@@ -1,5 +1,5 @@
 {
-  "evaluatedAt": "2026-11-02T16:23:32.085Z",
+  "evaluatedAt": "2026-11-02T16:49:55.587Z",
   "developmentVelocity": {
     "metric": "Sprint 3 Implementation Effort",
     "monolithHours": 12.5,
@@ -24,9 +24,9 @@
   },
   "testingOverhead": {
     "metric": "End-to-End Test Suite Duration",
-    "monolithDurationSec": 0.147,
-    "microservicesDurationSec": 0.133,
-    "deltaSec": -0.014,
+    "monolithDurationSec": 0.172,
+    "microservicesDurationSec": 2.111,
+    "deltaSec": 1.939,
     "notes": "Microservices testing requires cluster spin-up, TCP socket handshakes, JSON serialization over loopback, and distributed timing coordination."
   },
   "operationalOverhead": {
