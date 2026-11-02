@@ -1,0 +1,28 @@
+{
+  "name": "sepm-evaluation-system",
+  "version": "1.0.0",
+  "description": "Evaluating Sprint Velocity and Architectural Flexibility: Modular Monolith vs. Microservices",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start:monolith": "node monolith/src/server.js",
+    "start:gateway": "node microservices/gateway/src/gateway.js",
+    "start:catalog": "node microservices/services/catalog-service/src/server.js",
+    "start:inventory": "node microservices/services/inventory-service/src/server.js",
+    "start:order": "node microservices/services/order-service/src/server.js",
+    "start:microservices": "node scripts/start-all-microservices.js",
+    "test:monolith": "node tests/runner.js monolith",
+    "test:microservices": "node tests/runner.js microservices",
+    "test": "node tests/runner.js all",
+    "benchmark": "node benchmarks/evaluate-metrics.js",
+    "docker:up": "docker-compose -f microservices/docker-compose.yml up --build",
+    "docker:down": "docker-compose -f microservices/docker-compose.yml down"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "uuid": "^11.1.0"
+  }
+}

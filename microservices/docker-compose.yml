@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  catalog-service:
+    build:
+      context: ./services/catalog-service
+      dockerfile: Dockerfile
+    container_name: sepm-catalog-service
+    ports:
+      - "4001:4001"
+    environment:
+      - PORT=4001
+      - NODE_ENV=production
+    networks:
+      - sepm-network
+    restart: unless-stopped
+
+  inventory-service:
+    build:
+      context: ./services/inventory-service
+      dockerfile: Dockerfile
+    container_name: sepm-inventory-service
+    ports:
+      - "4002:4002"
+    environment:
+      - PORT=4002
+      - NODE_ENV=production
+    networks:
+      - sepm-network
+    restart: unless-stopped
+
+  order-service:
+    build:
+      context: ./services/order-service
+      dockerfile: Dockerfile
+    container_name: sepm-order-service
+    ports:
+      - "4003:4003"
+    environment:
+      - PORT=4003
+      - NODE_ENV=production
+      - CATALOG_SERVICE_URL=http://catalog-service:4001
+      - INVENTORY_SERVICE_URL=http://inventory-service:4002
+    depends_on:
+      - catalog-service
+      - inventory-service
+    networks:
+      - sepm-network
+    restart: unless-stopped
+
+  api-gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    container_name: sepm-api-gateway
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - CATALOG_SERVICE_URL=http://catalog-service:4001
+      - INVENTORY_SERVICE_URL=http://inventory-service:4002
+      - ORDER_SERVICE_URL=http://order-service:4003
+    depends_on:
+      - catalog-service
+      - inventory-service
+      - order-service
+    networks:
+      - sepm-network
+    restart: unless-stopped
+
+networks:
+  sepm-network:
+    driver: bridge

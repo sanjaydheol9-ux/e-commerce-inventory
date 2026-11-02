@@ -1,0 +1,303 @@
+{
+  "info": {
+    "name": "SEPM E-Commerce Architecture Evaluation Suite",
+    "_postman_id": "c86e0682-e421-4bcf-a5da-1b99335a1234",
+    "description": "Postman test collection for evaluating Sprint 1, 2, and 3 (Modular Monolith vs Microservices). Supports both baseUrl=http://localhost:3000 (Monolith) and baseUrl=http://localhost:4000 (Microservices Gateway).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "cartId",
+      "value": "postman-cart-01",
+      "type": "string"
+    },
+    {
+      "key": "orderId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "reservationId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Cluster / Monolith Health Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200 or 207', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 207]);",
+              "});",
+              "pm.test('Response contains status UP or HEALTHY', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(['UP', 'HEALTHY']).to.include(jsonData.status);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "02. Catalog - Get All Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Products array is populated', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data.length).to.be.at.least(5);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products"
+      }
+    },
+    {
+      "name": "03. Catalog - Get Product By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Product ID matches', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data.id).to.eql('prod-001');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/prod-001"
+      }
+    },
+    {
+      "name": "04. Inventory - Get Stock & Alert Status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Inventory includes stock counts', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data).to.have.property('stockAvailable');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/inventory/prod-001"
+      }
+    },
+    {
+      "name": "05. Dynamic Tax Engine - California Rate Quote",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Calculates 9.5% for US-CA', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data.jurisdiction).to.eql('US-CA');",
+              "    pm.expect(jsonData.data.taxAmount).to.eql(9.50);",
+              "    pm.expect(jsonData.data.totalAmount).to.eql(109.50);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tax/quote?subtotal=100&locationCode=US-CA",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tax", "quote"],
+          "query": [
+            { "key": "subtotal", "value": "100" },
+            { "key": "locationCode", "value": "US-CA" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "06. Cart - Add Item to Cart",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Item successfully added to cart', function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": \"prod-001\",\n  \"quantity\": 2\n}"
+        },
+        "url": "{{baseUrl}}/api/cart/{{cartId}}/items"
+      }
+    },
+    {
+      "name": "07. Cart - Get Cart With Dynamic Tax",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Cart dynamically calculates tax', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data.tax).to.have.property('taxAmount');",
+              "    pm.expect(jsonData.data.totalAmount).to.be.above(jsonData.data.subtotal);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cart/{{cartId}}?location=US-NY",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cart", "{{cartId}}"],
+          "query": [
+            { "key": "location", "value": "US-NY" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "08. Checkout - 5-Minute Reservation Lock",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Order placed with 5-minute stock reservation lock', function () {",
+              "    pm.response.to.have.status(201);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data.reservationLock.status).to.eql('LOCKED');",
+              "    pm.expect(jsonData.data.reservationLock.ttlSeconds).to.eql(300);",
+              "    pm.environment.set('orderId', jsonData.data.orderId);",
+              "    pm.environment.set('reservationId', jsonData.data.reservationLock.reservationId);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerId\": \"postman-buyer-01\",\n  \"locationCode\": \"US-CA\",\n  \"shippingAddress\": {\n    \"street\": \"100 Market St\",\n    \"city\": \"San Francisco\",\n    \"state\": \"CA\"\n  }\n}"
+        },
+        "url": "{{baseUrl}}/api/cart/{{cartId}}/checkout"
+      }
+    },
+    {
+      "name": "09. Order - Process Payment Confirmation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Payment confirms order and finalizes stock deduction', function () {",
+              "    pm.response.to.have.status(200);",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.order.status).to.eql('PAID');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"method\": \"CREDIT_CARD\",\n  \"cardNumber\": \"**** **** **** 4242\"\n}"
+        },
+        "url": "{{baseUrl}}/api/orders/{{orderId}}/pay"
+      }
+    },
+    {
+      "name": "10. Sweeper - Trigger Expired Lock Cleanup",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Sweeper executes without error', function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/api/inventory/sweep"
+      }
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "products": [
+    {
+      "id": "prod-001",
+      "name": "Wireless Mechanical Keyboard",
+      "category": "Electronics",
+      "price": 129.99,
+      "description": "Compact 75% Bluetooth/2.4G RGB mechanical keyboard with hot-swappable switches",
+      "createdAt": "2026-11-02T16:23:31.806Z",
+      "updatedAt": "2026-11-02T16:23:31.807Z"
+    },
+    {
+      "id": "prod-002",
+      "name": "Ergonomic Gaming Mouse",
+      "category": "Electronics",
+      "price": 69.99,
+      "description": "High-precision 26,000 DPI sensor with ultra-lightweight chassis",
+      "createdAt": "2026-11-02T16:23:31.808Z",
+      "updatedAt": "2026-11-02T16:23:31.808Z"
+    },
+    {
+      "id": "prod-003",
+      "name": "Noise-Cancelling Studio Headphones",
+      "category": "Audio",
+      "price": 249.99,
+      "description": "Active noise cancelling wireless over-ear audiophile headphones",
+      "createdAt": "2026-11-02T16:23:31.808Z",
+      "updatedAt": "2026-11-02T16:23:31.808Z"
+    },
+    {
+      "id": "prod-004",
+      "name": "4K UltraWide Monitor 34\"",
+      "category": "Electronics",
+      "price": 599.99,
+      "description": "Curved 144Hz IPS display with 99% sRGB color gamut",
+      "createdAt": "2026-11-02T16:23:31.808Z",
+      "updatedAt": "2026-11-02T16:23:31.808Z"
+    },
+    {
+      "id": "prod-005",
+      "name": "Solid Walnut Desk Mat",
+      "category": "Accessories",
+      "price": 39.99,
+      "description": "Natural organic felt and vegan leather desk pad",
+      "createdAt": "2026-11-02T16:23:31.809Z",
+      "updatedAt": "2026-11-02T16:23:31.809Z"
+    },
+    {
+      "id": "prod-test-01",
+      "name": "Test Gaming Chair",
+      "category": "Furniture",
+      "price": 199.99,
+      "description": "Ergonomic racing style chair",
+      "createdAt": "2026-11-02T16:23:31.821Z",
+      "updatedAt": "2026-11-02T16:23:31.821Z"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "inv-001",
+      "productId": "prod-001",
+      "stockAvailable": 50,
+      "stockReserved": 0,
+      "lowStockThreshold": 10,
+      "createdAt": "2026-11-02T16:23:31.809Z",
+      "updatedAt": "2026-11-02T16:23:31.809Z"
+    },
+    {
+      "id": "inv-002",
+      "productId": "prod-002",
+      "stockAvailable": 30,
+      "stockReserved": 0,
+      "lowStockThreshold": 5,
+      "createdAt": "2026-11-02T16:23:31.809Z",
+      "updatedAt": "2026-11-02T16:23:31.908Z"
+    },
+    {
+      "id": "inv-003",
+      "productId": "prod-003",
+      "stockAvailable": 15,
+      "stockReserved": 0,
+      "lowStockThreshold": 3,
+      "createdAt": "2026-11-02T16:23:31.810Z",
+      "updatedAt": "2026-11-02T16:23:31.934Z"
+    },
+    {
+      "id": "inv-004",
+      "productId": "prod-004",
+      "stockAvailable": 2,
+      "stockReserved": 6,
+      "lowStockThreshold": 2,
+      "createdAt": "2026-11-02T16:23:31.819Z",
+      "updatedAt": "2026-11-02T16:23:31.894Z"
+    },
+    {
+      "id": "inv-005",
+      "productId": "prod-005",
+      "stockAvailable": 100,
+      "stockReserved": 0,
+      "lowStockThreshold": 15,
+      "createdAt": "2026-11-02T16:23:31.819Z",
+      "updatedAt": "2026-11-02T16:23:31.819Z"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "res-275f3941",
+      "orderId": "ord-8e007ba0",
+      "items": [
+        {
+          "productId": "prod-002",
+          "name": "Ergonomic Gaming Mouse",
+          "price": 69.99,
+          "quantity": 5,
+          "lineTotal": 349.95
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:28:31.864Z",
+      "createdAt": "2026-11-02T16:23:31.865Z",
+      "updatedAt": "2026-11-02T16:23:31.914Z",
+      "confirmedAt": "2026-11-02T16:23:31.914Z"
+    },
+    {
+      "id": "res-88bfb795",
+      "orderId": "ord-099a7450",
+      "items": [
+        {
+          "productId": "prod-004",
+          "name": "4K UltraWide Monitor 34\"",
+          "price": 599.99,
+          "quantity": 6,
+          "lineTotal": 3599.94
+        }
+      ],
+      "status": "ACTIVE",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:28:31.900Z",
+      "createdAt": "2026-11-02T16:23:31.900Z",
+      "updatedAt": "2026-11-02T16:23:31.900Z"
+    },
+    {
+      "id": "res-3c4ec2f9",
+      "orderId": "ord-ebb48f70",
+      "items": [
+        {
+          "productId": "prod-003",
+          "name": "Noise-Cancelling Studio Headphones",
+          "price": 249.99,
+          "quantity": 4,
+          "lineTotal": 999.96
+        }
+      ],
+      "status": "EXPIRED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:23:30.933Z",
+      "createdAt": "2026-11-02T16:23:31.932Z",
+      "updatedAt": "2026-11-02T16:23:31.944Z",
+      "releasedAt": "2026-11-02T16:23:31.944Z",
+      "releaseReason": "EXPIRED"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-8e007ba0",
+      "customerId": "cust-mono-user",
+      "items": [
+        {
+          "productId": "prod-002",
+          "name": "Ergonomic Gaming Mouse",
+          "price": 69.99,
+          "quantity": 5,
+          "lineTotal": 349.95
+        }
+      ],
+      "subtotal": 349.95,
+      "taxDetails": {
+        "jurisdiction": "US-CA",
+        "taxRule": "California State & Local Sales Tax",
+        "taxRate": 0.095,
+        "taxRatePercentage": "9.50%",
+        "subtotal": 349.95,
+        "taxAmount": 33.25,
+        "totalAmount": 383.2
+      },
+      "totalAmount": 383.2,
+      "status": "PAID",
+      "reservationId": "res-275f3941",
+      "reservationExpiresAt": "2026-11-02T16:28:31.864Z",
+      "shippingAddress": {
+        "state": "CA",
+        "locationCode": "US-CA"
+      },
+      "paymentDetails": {
+        "transactionId": "txn-1793636611914",
+        "method": "CREDIT_CARD",
+        "amount": 383.2,
+        "timestamp": "2026-11-02T16:23:31.914Z"
+      },
+      "createdAt": "2026-11-02T16:23:31.851Z",
+      "updatedAt": "2026-11-02T16:23:31.914Z",
+      "paidAt": "2026-11-02T16:23:31.914Z"
+    },
+    {
+      "id": "ord-099a7450",
+      "customerId": "cust-concurrent-1",
+      "items": [
+        {
+          "productId": "prod-004",
+          "name": "4K UltraWide Monitor 34\"",
+          "price": 599.99,
+          "quantity": 6,
+          "lineTotal": 3599.94
+        }
+      ],
+      "subtotal": 3599.94,
+      "taxDetails": {
+        "jurisdiction": "DEFAULT",
+        "taxRule": "Standard Baseline Regional Tax",
+        "taxRate": 0.05,
+        "taxRatePercentage": "5.00%",
+        "subtotal": 3599.94,
+        "taxAmount": 180,
+        "totalAmount": 3779.94
+      },
+      "totalAmount": 3779.94,
+      "status": "PENDING",
+      "reservationId": "res-88bfb795",
+      "reservationExpiresAt": "2026-11-02T16:28:31.900Z",
+      "shippingAddress": {
+        "locationCode": "DEFAULT"
+      },
+      "paymentDetails": null,
+      "createdAt": "2026-11-02T16:23:31.894Z",
+      "updatedAt": "2026-11-02T16:23:31.907Z"
+    },
+    {
+      "id": "ord-ebb48f70",
+      "customerId": "cust-expiry-test",
+      "items": [
+        {
+          "productId": "prod-003",
+          "name": "Noise-Cancelling Studio Headphones",
+          "price": 249.99,
+          "quantity": 4,
+          "lineTotal": 999.96
+        }
+      ],
+      "subtotal": 999.96,
+      "taxDetails": {
+        "jurisdiction": "DEFAULT",
+        "taxRule": "Standard Baseline Regional Tax",
+        "taxRate": 0.05,
+        "taxRatePercentage": "5.00%",
+        "subtotal": 999.96,
+        "taxAmount": 50,
+        "totalAmount": 1049.96
+      },
+      "totalAmount": 1049.96,
+      "status": "EXPIRED",
+      "reservationId": "res-3c4ec2f9",
+      "reservationExpiresAt": "2026-11-02T16:28:31.932Z",
+      "shippingAddress": {
+        "locationCode": "DEFAULT"
+      },
+      "paymentDetails": null,
+      "createdAt": "2026-11-02T16:23:31.931Z",
+      "updatedAt": "2026-11-02T16:23:31.944Z"
+    }
+  ],
+  "order_items": [],
+  "carts": [
+    {
+      "id": "test-cart-mono-01",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:23:31.836Z",
+      "updatedAt": "2026-11-02T16:23:31.843Z"
+    },
+    {
+      "id": "test-cart-mono-02",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:23:31.844Z",
+      "updatedAt": "2026-11-02T16:23:31.874Z"
+    },
+    {
+      "id": "test-cart-mono-concurrency",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:23:31.884Z",
+      "updatedAt": "2026-11-02T16:23:31.907Z"
+    },
+    {
+      "id": "test-cart-expiry",
+      "items": [],
+      "locationCode": "DEFAULT",
+      "createdAt": "2026-11-02T16:23:31.923Z",
+      "updatedAt": "2026-11-02T16:23:31.933Z"
+    }
+  ]
+}

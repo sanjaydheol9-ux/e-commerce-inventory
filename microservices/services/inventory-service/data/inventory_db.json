@@ -1,0 +1,116 @@
+{
+  "inventory": [
+    {
+      "id": "inv-001",
+      "productId": "prod-001",
+      "stockAvailable": 40,
+      "stockReserved": 0,
+      "lowStockThreshold": 10
+    },
+    {
+      "id": "inv-002",
+      "productId": "prod-002",
+      "stockAvailable": 35,
+      "stockReserved": 0,
+      "lowStockThreshold": 5
+    },
+    {
+      "id": "inv-003",
+      "productId": "prod-003",
+      "stockAvailable": 15,
+      "stockReserved": 0,
+      "lowStockThreshold": 3
+    },
+    {
+      "id": "inv-004",
+      "productId": "prod-004",
+      "stockAvailable": 8,
+      "stockReserved": 0,
+      "lowStockThreshold": 2
+    },
+    {
+      "id": "inv-005",
+      "productId": "prod-005",
+      "stockAvailable": 100,
+      "stockReserved": 0,
+      "lowStockThreshold": 15
+    }
+  ],
+  "reservations": [
+    {
+      "id": "res-1a6e7148",
+      "orderId": "ord-963996ac",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:24:37.035Z",
+      "createdAt": "2026-11-02T16:19:37.036Z",
+      "confirmedAt": "2026-11-02T16:19:37.052Z"
+    },
+    {
+      "id": "res-95cf1b4d",
+      "orderId": "ord-017868c8",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:24:57.234Z",
+      "createdAt": "2026-11-02T16:19:57.234Z",
+      "confirmedAt": "2026-11-02T16:19:57.250Z"
+    },
+    {
+      "id": "res-d4bb3b05",
+      "orderId": "ord-4f237878",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:25:26.218Z",
+      "createdAt": "2026-11-02T16:20:26.218Z",
+      "confirmedAt": "2026-11-02T16:20:26.234Z"
+    },
+    {
+      "id": "res-f5fd9c1f",
+      "orderId": "ord-0f1c56be",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:27:32.279Z",
+      "createdAt": "2026-11-02T16:22:32.279Z",
+      "confirmedAt": "2026-11-02T16:22:32.294Z"
+    },
+    {
+      "id": "res-deebfeae",
+      "orderId": "ord-ff2e1df3",
+      "items": [
+        {
+          "productId": "prod-001",
+          "quantity": 2
+        }
+      ],
+      "status": "CONFIRMED",
+      "ttlSeconds": 300,
+      "expiresAt": "2026-11-02T16:28:32.049Z",
+      "createdAt": "2026-11-02T16:23:32.049Z",
+      "confirmedAt": "2026-11-02T16:23:32.066Z"
+    }
+  ]
+}
