@@ -20,6 +20,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; border: none; }
     ::selection { background: var(--accent); color: var(--black); }
 
@@ -207,6 +208,42 @@
     .footer-links { display: flex; gap: 1.5rem; }
     .footer-links a { font-size: .78rem; color: var(--text3); font-weight: 500; transition: var(--transition); }
     .footer-links a:hover { color: var(--white); }
+
+    /* ===== INTERACTION & MOTION ===== */
+    :where(button, a, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:not(:disabled) { transition: color .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s cubic-bezier(.2,.8,.2,1); }
+    button:not(:disabled):active { transform: scale(.97); }
+    .page.active { animation: pageEnter .42s cubic-bezier(.2,.75,.25,1) both; }
+    @keyframes pageEnter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-media img { animation: heroDrift 24s ease-in-out infinite alternate; }
+    @keyframes heroDrift { from { transform: scale(1); } to { transform: scale(1.055); } }
+    .hero-chip, .hero-title, .hero-sub, .hero-cta { animation: heroRise .7s cubic-bezier(.2,.75,.25,1) backwards; }
+    .hero-title { animation-delay: .08s; }
+    .hero-sub { animation-delay: .16s; }
+    .hero-cta { animation-delay: .24s; }
+    @keyframes heroRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .p-card { animation: productEnter .46s cubic-bezier(.2,.75,.25,1) backwards; animation-delay: calc(var(--card-index, 0) * 55ms); will-change: transform; }
+    @keyframes productEnter { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .p-card:hover { box-shadow: 0 16px 38px rgba(0,0,0,.24); }
+    .p-card .thumb img { will-change: transform; }
+    .atc:not(:disabled):hover, .o-pay:hover, .co-btn:hover, .hero-cta:hover { box-shadow: 0 8px 24px rgba(200,255,0,.14); }
+    .atc:disabled.is-loading { opacity: .72; cursor: wait; }
+    .atc.is-added { background: var(--accent); }
+    .co-btn:disabled, .o-pay:disabled, .o-cancel:disabled { opacity: .68; cursor: wait; }
+    .cart-btn .count { transition: transform .2s cubic-bezier(.2,.8,.2,1); }
+    .cart-btn.bump .count { animation: countBump .38s cubic-bezier(.2,.8,.2,1); }
+    @keyframes countBump { 50% { transform: scale(1.28); } }
+    .toast { opacity: 1; transform: translateY(0); transition: opacity .24s ease, transform .24s ease; }
+    .toast.leaving { opacity: 0; transform: translateY(8px); }
+    .o-card, .a-card, .summary { transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+    .o-card:hover, .a-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,.16); }
+    .pill.on { box-shadow: 0 3px 12px rgba(255,255,255,.12); }
+    .inv-t tbody tr { transition: background-color .2s ease; }
+    .inv-t tbody tr:hover { background: rgba(255,255,255,.035); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
   </style>
 </head>
 <body>
@@ -224,7 +261,7 @@
       <button class="nav-link" onclick="go('admin',this)">Dashboard</button>
     </div>
     <div class="nav-right">
-      <button class="cart-btn" onclick="go('cart',document.querySelectorAll('.nav-link')[0])">
+      <button class="cart-btn" aria-label="Open shopping cart" onclick="go('cart',document.querySelectorAll('.nav-link')[0])">
         <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="count" id="cartCount">0</div>
       </button>
@@ -232,7 +269,7 @@
   </div>
 </div>
 
-<div class="toast-box" id="toasts"></div>
+<div class="toast-box" id="toasts" aria-live="polite" aria-atomic="true"></div>
 
 <!-- ===== SHOP ===== -->
 <div class="page active" id="page-shop">
@@ -323,7 +360,9 @@ let CID=localStorage.getItem('cs')||((()=>{const i='c-'+Date.now().toString(36);
 let products=[],loc='US-CA';
 
 // Scroll nav
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20)});
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
+},{passive:true});
 
 // Nav
 function go(p,btn){
@@ -331,12 +370,20 @@ function go(p,btn){
   document.getElementById('page-'+p).classList.add('active');
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  window.scrollTo({top:0});
+  window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   if(p==='cart')loadCart();if(p==='orders')loadOrders();if(p==='admin')loadAdmin();
 }
 
 // Toast
-function toast(m,ok=true){const d=document.createElement('div');d.className='toast '+(ok?'ok':'err');d.textContent=m;document.getElementById('toasts').appendChild(d);setTimeout(()=>d.remove(),3200)}
+function toast(m,ok=true){
+  const d=document.createElement('div');
+  d.className='toast '+(ok?'ok':'err');
+  d.setAttribute('role',ok?'status':'alert');
+  d.textContent=m;
+  document.getElementById('toasts').appendChild(d);
+  setTimeout(()=>{d.classList.add('leaving');d.addEventListener('transitionend',()=>d.remove(),{once:true});},2800);
+  setTimeout(()=>d.remove(),3200);
+}
 
 // Products
 async function loadProducts(){
@@ -355,17 +402,48 @@ function filt(c,b){document.querySelectorAll('.pill').forEach(x=>x.classList.rem
 function render(list){
   document.getElementById('pCount').textContent=list.length+' product'+(list.length!==1?'s':'');
   if(!list.length){document.getElementById('pGrid').innerHTML='<div class="empty"><div class="e-icon">◆</div><h3>Nothing here</h3></div>';return}
-  document.getElementById('pGrid').innerHTML=list.map(p=>`
-    <div class="p-card"><div class="thumb"><img src="${p._img}" alt="${p.name}" loading="lazy"><div class="cat-tag">${p.category}</div><div class="stock-led ${p._s>0?(p._l?'low':'ok'):'low'}"></div></div>
+  document.getElementById('pGrid').innerHTML=list.map((p,index)=>`
+    <div class="p-card" style="--card-index:${index}"><div class="thumb"><img src="${p._img}" alt="${p.name}" loading="lazy"><div class="cat-tag">${p.category}</div><div class="stock-led ${p._s>0?(p._l?'low':'ok'):'low'}"></div></div>
     <div class="p-body"><div class="p-name">${p.name}</div><div class="p-desc">${p.description||'Precision-engineered for the modern professional workspace.'}</div>
     <div class="p-foot"><div><div class="price">$${Number(p.price).toFixed(2)}</div><div class="stock-text ${p._l?'warn':''}">${p._s>0?p._s+' in stock':'Out of stock'}${p._l&&p._s>0?' · Low':''}</div></div>
-    <button class="atc" onclick="atc('${p.id}')" ${p._s<=0?'disabled':''}>Add to Cart</button></div></div></div>
+    <button class="atc" onclick="atc('${p.id}',this)" ${p._s<=0?'disabled':''}>Add to Cart</button></div></div></div>
   `).join('')
 }
 
 // Cart
-async function atc(id){try{await fetch(A+`/api/cart/${CID}/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({productId:id,quantity:1})});toast('Added to cart');badge()}catch(e){toast('Error',false)}}
-async function badge(){try{const r=await fetch(A+`/api/cart/${CID}?location=${loc}`);const j=await r.json();document.getElementById('cartCount').textContent=(j.data?.items||[]).reduce((s,i)=>s+i.quantity,0)}catch(e){document.getElementById('cartCount').textContent='0'}}
+async function atc(id,button){
+  if(button?.disabled)return;
+  const label=button?.textContent;
+  if(button){button.disabled=true;button.textContent='Adding…';button.classList.add('is-loading')}
+  try{
+    const r=await fetch(A+`/api/cart/${CID}/items`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({productId:id,quantity:1})});
+    const j=await r.json();
+    if(!r.ok||j.success===false)throw new Error(j.error||'Unable to add this item');
+    if(button){button.textContent='Added';button.classList.remove('is-loading');button.classList.add('is-added')}
+    toast('Added to cart');
+    await badge();
+    if(button)setTimeout(()=>{button.textContent=label;button.disabled=false;button.classList.remove('is-added');},1100);
+  }catch(e){
+    if(button){button.textContent=label;button.disabled=false;button.classList.remove('is-loading')}
+    toast(e.message||'Unable to add this item',false);
+  }
+}
+async function badge(){
+  try{
+    const r=await fetch(A+`/api/cart/${CID}?location=${loc}`);
+    const j=await r.json();
+    const count=(j.data?.items||[]).reduce((s,i)=>s+i.quantity,0);
+    const button=document.querySelector('.cart-btn');
+    const countEl=document.getElementById('cartCount');
+    if(countEl.textContent!==String(count)){
+      countEl.textContent=count;
+      button.classList.remove('bump');
+      void button.offsetWidth;
+      button.classList.add('bump');
+      button.addEventListener('animationend',()=>button.classList.remove('bump'),{once:true});
+    }
+  }catch(e){document.getElementById('cartCount').textContent='0'}
+}
 
 async function loadCart(){
   const B=document.getElementById('cartBox');
@@ -386,15 +464,25 @@ async function loadCart(){
     <div class="s-row"><span>Tax (${t.jurisdiction||loc} @ ${((t.taxRate||0)*100).toFixed(1)}%)</span><span>$${Number(t.taxAmount||0).toFixed(2)}</span></div>
     <hr class="s-div">
     <div class="s-total"><span>Total</span><span>$${Number(t.totalAmount||c.subtotal||0).toFixed(2)}</span></div>
-    <button class="co-btn" onclick="checkout()">Reserve & Checkout</button>
+    <button class="co-btn" onclick="checkout(this)">Reserve & Checkout</button>
     <div class="co-note">🔒 Stock locked for 5 minutes at checkout</div></div>`;
   }catch(e){B.innerHTML='<div class="empty" style="grid-column:1/-1;"><div class="e-icon">◆</div><h3>Cart is empty</h3></div>'}
 }
 async function rmItem(id){try{await fetch(A+`/api/cart/${CID}/items/${id}`,{method:'DELETE'});toast('Removed');loadCart();badge()}catch(e){toast('Error',false)}}
-async function checkout(){
+function beginButtonAction(button,label){
+  if(!button)return()=>{};
+  if(button.disabled)return null;
+  const original=button.textContent;
+  button.disabled=true;
+  button.textContent=label;
+  return()=>{button.disabled=false;button.textContent=original};
+}
+async function checkout(button){
+  const restore=beginButtonAction(button,'Reserving…');
+  if(button&&!restore)return;
   try{const r=await fetch(A+`/api/cart/${CID}/checkout`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customerId:'web-user',locationCode:loc})});const j=await r.json();if(!j.success)throw new Error(j.error);
   toast('Checkout complete — stock reserved');localStorage.removeItem('cs');CID='c-'+Date.now().toString(36);localStorage.setItem('cs',CID);document.getElementById('cartCount').textContent='0';
-  go('orders',document.querySelectorAll('.nav-link')[1]);loadProducts()}catch(e){toast('Failed: '+e.message,false)}
+  go('orders',document.querySelectorAll('.nav-link')[1]);loadProducts()}catch(e){restore?.();toast('Failed: '+e.message,false)}
 }
 
 // Orders
@@ -406,11 +494,19 @@ async function loadOrders(){
     <div class="o-card"><div class="o-top"><div><span class="o-id">${o.id}</span><span class="o-time">${o.createdAt?new Date(o.createdAt).toLocaleString():''}</span></div><span class="o-badge ${o.status.toLowerCase()}">${o.status}</span></div>
     <div class="o-meta"><div><div class="o-ml">Items</div><div class="o-mv">${(o.items||[]).length}</div></div><div><div class="o-ml">Total</div><div class="o-mv">$${Number(o.totalAmount||0).toFixed(2)}</div></div><div><div class="o-ml">Region</div><div class="o-mv">${(o.shippingAddress?.locationCode)||(o.taxDetails?.jurisdiction)||'—'}</div></div><div><div class="o-ml">Payment</div><div class="o-mv">${o.paymentDetails?o.paymentDetails.method:'—'}</div></div></div>
     ${o.reservationId?`<div class="o-lock"><div class="o-lock-icon">🔒</div><div><div class="o-lock-id">${o.reservationId}</div><div class="o-lock-exp">Expires ${o.reservationExpiresAt?new Date(o.reservationExpiresAt).toLocaleTimeString():'—'}</div></div></div>`:''}
-    <div class="o-actions">${o.status==='PENDING'?`<button class="o-pay" onclick="pay('${o.id}')">Pay Now</button><button class="o-cancel" onclick="cancel('${o.id}')">Cancel</button>`:''}${o.status==='PAID'?'<span style="color:#2ecc71;font-weight:800;font-size:.82rem;">✓ Confirmed</span>':''}${o.status==='CANCELLED'?'<span style="color:var(--red);font-weight:800;font-size:.82rem;">✕ Cancelled</span>':''}${o.status==='EXPIRED'?'<span style="color:var(--text3);font-weight:800;font-size:.82rem;">⏰ Expired</span>':''}</div></div>
+    <div class="o-actions">${o.status==='PENDING'?`<button class="o-pay" onclick="pay('${o.id}',this)">Pay Now</button><button class="o-cancel" onclick="cancel('${o.id}',this)">Cancel</button>`:''}${o.status==='PAID'?'<span style="color:#2ecc71;font-weight:800;font-size:.82rem;">✓ Confirmed</span>':''}${o.status==='CANCELLED'?'<span style="color:var(--red);font-weight:800;font-size:.82rem;">✕ Cancelled</span>':''}${o.status==='EXPIRED'?'<span style="color:var(--text3);font-weight:800;font-size:.82rem;">⏰ Expired</span>':''}</div></div>
   `).join('')}catch(e){B.innerHTML=`<div class="empty"><h3>Error</h3><p>${e.message}</p></div>`}
 }
-async function pay(id){try{const r=await fetch(A+`/api/orders/${id}/pay`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:'CREDIT_CARD'})});const j=await r.json();if(!j.success)throw new Error(j.error);toast('Payment confirmed');loadOrders();loadProducts()}catch(e){toast(e.message,false)}}
-async function cancel(id){try{await fetch(A+`/api/orders/${id}/cancel`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reason:'Web cancel'})});toast('Cancelled');loadOrders();loadProducts()}catch(e){toast(e.message,false)}}
+async function pay(id,button){
+  const restore=beginButtonAction(button,'Processing…');
+  if(button&&!restore)return;
+  try{const r=await fetch(A+`/api/orders/${id}/pay`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method:'CREDIT_CARD'})});const j=await r.json();if(!j.success)throw new Error(j.error);toast('Payment confirmed');loadOrders();loadProducts()}catch(e){restore?.();toast(e.message,false)}
+}
+async function cancel(id,button){
+  const restore=beginButtonAction(button,'Cancelling…');
+  if(button&&!restore)return;
+  try{const r=await fetch(A+`/api/orders/${id}/cancel`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reason:'Web cancel'})});const j=await r.json();if(!r.ok||j.success===false)throw new Error(j.error||'Unable to cancel order');toast('Cancelled');loadOrders();loadProducts()}catch(e){restore?.();toast(e.message,false)}
+}
 
 // Admin
 async function loadAdmin(){
