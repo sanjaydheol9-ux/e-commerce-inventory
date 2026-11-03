@@ -77,6 +77,9 @@ app.get('/health', async (req, res) => {
 });
 
 // Route: Catalog Service
+app.use('/api/catalog', (req, res) => {
+  forwardRequest(CATALOG_URL, req, res, '/products');
+});
 app.use('/api/products', (req, res) => {
   forwardRequest(CATALOG_URL, req, res, '/products');
 });

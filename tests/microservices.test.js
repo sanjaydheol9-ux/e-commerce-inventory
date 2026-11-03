@@ -92,6 +92,13 @@ async function runMicroservicesTests() {
       assert.strictEqual(res.data.data.length >= 5, true);
     });
 
+    await test('Gateway -> Catalog: Serve storefront catalog route through reverse proxy', async () => {
+      const res = await axios.get(`${GATEWAY_URL}/api/catalog`);
+      assert.strictEqual(res.status, 200);
+      assert.strictEqual(res.data.success, true);
+      assert.strictEqual(res.data.data.length >= 5, true);
+    });
+
     // Test 3: Inventory via Gateway
     await test('Gateway -> Inventory: Verify stock queries through reverse proxy', async () => {
       const res = await axios.get(`${GATEWAY_URL}/api/inventory/prod-001`);

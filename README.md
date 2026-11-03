@@ -86,6 +86,23 @@ npm run docker:up
 ```
 *Health Check:* `curl http://localhost:4000/health`
 
+### Deploy the Storefront and Microservices to Vercel
+
+The root [`vercel.json`](./vercel.json) configures a Vercel multi-service project:
+- `storefront` serves the website at `/` and other page paths.
+- `gateway` handles `/api/*`; `/health` goes to the storefront health endpoint.
+- `catalog-service`, `inventory-service`, and `order-service` stay internal and are reached through service bindings.
+
+To deploy from GitHub:
+1. Commit and push the Vercel config and application changes to the repository.
+2. In Vercel, choose **Add New → Project**, import `sanjaydheol9-ux/e-commerce-inventory`, and keep the project root at the repository root (`.`). Do not set it to `monolith` or a microservice subdirectory; the root config coordinates all services.
+3. Deploy. Vercel builds the storefront and backend services from their configured roots and connects the declared bindings.
+4. Open the deployment URL and verify the storefront, product catalog, and `/health` endpoint.
+
+You can test the multi-service routing locally with `vercel dev` from the repository root.
+
+**Persistence limitation:** the current services store data in local JSON files. Vercel function filesystems are ephemeral, so catalog, inventory, cart, and order writes are not durable/shared across instances. Use an external database before relying on this deployment for persistent data or real orders.
+
 ---
 
 ## 🧪 Running Automated Tests

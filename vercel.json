@@ -1,0 +1,79 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "storefront": {
+      "root": "monolith",
+      "framework": "express"
+    },
+    "gateway": {
+      "root": "microservices/gateway",
+      "runtime": "container",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "catalog-service",
+          "format": "url",
+          "env": "CATALOG_SERVICE_URL"
+        },
+        {
+          "type": "service",
+          "service": "inventory-service",
+          "format": "url",
+          "env": "INVENTORY_SERVICE_URL"
+        },
+        {
+          "type": "service",
+          "service": "order-service",
+          "format": "url",
+          "env": "ORDER_SERVICE_URL"
+        }
+      ]
+    },
+    "catalog-service": {
+      "root": "microservices/services/catalog-service",
+      "framework": "express"
+    },
+    "inventory-service": {
+      "root": "microservices/services/inventory-service",
+      "framework": "express"
+    },
+    "order-service": {
+      "root": "microservices/services/order-service",
+      "framework": "express",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "catalog-service",
+          "format": "url",
+          "env": "CATALOG_SERVICE_URL"
+        },
+        {
+          "type": "service",
+          "service": "inventory-service",
+          "format": "url",
+          "env": "INVENTORY_SERVICE_URL"
+        }
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/health",
+      "destination": {
+        "service": "storefront"
+      }
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "gateway"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "storefront"
+      }
+    }
+  ]
+}
